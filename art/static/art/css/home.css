@@ -1,0 +1,98 @@
+
+body {
+    font-family: arial, sans-serif;
+}
+.col-sm-6{
+    margin:0;
+
+    background-color:white;
+    
+}
+
+/* sets the cols to equal heights (No margin?) */
+/*
+[class*="col-"]{
+    margin-bottom: -99999px;
+    padding-bottom: 99999px;
+}
+*/
+
+/* Carousel Styling */
+.slide1{
+    height: 250px;
+    background-repeat: no-repeat;
+    background-position: center;
+    //background-size: cover;
+}
+.carousel-caption h1{
+    font-size: 5.4em;
+    font-family: 'Pacifico', cursive;
+    padding-bottom: .4em;
+}
+
+.carousel-caption p{
+    font-size: 2em;
+}
+
+.jumbotron {
+    margin:0;
+    text-align: center;
+}
+
+.container-fluid .jumbotron{
+    border-radius: 0px;
+}
+
+.jumbotron .btn {
+  padding: .75rem 1.5rem;
+  font-size: 1.5rem;
+}
+
+.display-3{
+    font-family: 'Courgette', cursive;
+    margin:0;
+}
+
+.site_info{
+    text-align:center;
+}
+
+.site_pic{
+    text-align:center;
+}
+
+
+
+.carousel-control.left, .carousel-control.right {
+	background-image:none;
+}
+
+.img-responsive{
+	width:100%;
+	height:auto;
+}
+.carousel-inner > .item.next,
+.carousel-inner > .item.active.right {
+    left: 0;
+    -webkit-transform: translate3d(25%, 0, 0);
+    -ms-transform: translate3d(25%, 0, 0);
+    -o-transform: translate3d(25%, 0, 0);
+    transform: translate3d(25%, 0, 0);
+        // use your favourite prefixer here
+visibility: hidden;
+ }
+
+.carousel-inner > .item.prev,
+.carousel-inner > .item.active.left {
+  left: 0;
+  -webkit-transform: translate3d(-25%, 0, 0);
+  -ms-transform: translate3d(-25%, 0, 0);
+  -o-transform: translate3d(-25%, 0, 0);
+  transform: translate3d(-25%, 0, 0);
+visibility: hidden;
+}
+
+.carousel-inner .active.left { left: -25%; }
+.carousel-inner .active.right { left: 25%; }
+.carousel-inner .next        { left:  25%; }
+.carousel-inner .prev        { left: -25%; }

@@ -1,0 +1,39 @@
+{% extends 'art/base.html' %}
+{% block title %}{{ art }}{% endblock %}
+{% block arts_active %}active{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-sm-4 col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <a href="{% url 'art:detail' art.id %}">
+                        {% if art.pic %}
+                            <img src="{{ art.pic.url }}" class="img-responsive">
+                        {% else %}
+                            <h3>No image to display</h3>
+                        {% endif %}
+                    </a>
+                    <h1>Title: {{ art.title }}</h1> 
+                    <h2>Artist: {{ art.user.username }}</h2>
+                    <p>Genre: {{ art.get_genre_display }}</p>
+                    <p>Date Created: {{ art.date_created }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-8 col-md-9">
+
+            <ul class="nav nav-pills" style="margin-bottom: 10px;">
+                <li role="presentation" class="active"><a href="{% url 'art:profile' %}">View All</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

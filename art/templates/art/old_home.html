@@ -1,0 +1,173 @@
+{% extends 'art/base.html' %}
+{#{% block albums_active %}active{% endblock %}#}
+{% block style %}
+
+{% load staticfiles %}
+<script src="{% static 'base/js/bootstrap.min.js' %}"></script>
+<link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Courgette' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css" href="{% static 'art/css/home.css' %}"/>
+<script>
+jQuery(document).ready(function() {
+
+    jQuery('.carousel[data-type="multi"] .item').each(function(){
+        var next = jQuery(this).next();
+        if (!next.length) {
+            next = jQuery(this).siblings(':first');
+        }
+        next.children(':first-child').clone().appendTo(jQuery(this));
+
+        for (var i=0;i<2;i++) {
+            next=next.next();
+            if (!next.length) {
+                next = jQuery(this).siblings(':first');
+            }
+            next.children(':first-child').clone().appendTo($(this));
+        }
+    });
+
+});
+</script>
+{% endblock %}
+{% block body %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="jumbotron" style="background-color:#5fd7ff">
+            <h1 class="display-3">A New Way To Buy Art From A</h1>
+            <h1 class="display-3">New Generation OF</h1>
+            <h1 class="display-3">Artists</h1>
+            <p><a class="btn btn-lg btn-success" href="{% url 'art:artists' %} " role="button">Meet the Artists</a></p>
+        </div>
+        <div class="col-md-12" style="padding:0; height: 20px;">
+        </div>
+
+        <div class="col-md-4">
+            <img src="{% static 'art/images/images.jpeg' %}" class="center-block">
+            <p class="site_info"> LOCAL ART ONLY </p>
+        </div>
+        <div class="col-md-4">
+            <img src="{% static 'art/images/images.jpeg' %}" class="center-block">
+            <p class="site_info"> ORIGINAL PAINTINGS </p>
+        </div>
+        <div class="col-md-4">
+            <img src="{% static 'art/images/images.jpeg' %}" class="center-block">
+            <p class="site_info"> UNDER $1000 </p>
+        </div>
+        <!--<div class="row no-gutter" style="background-color:green;">  -->
+        <div class="col-md-12" style="padding:0;">
+            {% if slides %}
+            <!--<div id="theCarousel" class="carousel slide" data-ride="carousel">  -->
+            <div class="container text-center" style="padding:0;">
+                <div class="carousel slide row" data-ride="carousel" data-type="multi" data-interval="5000" id="theCarousel">
+
+                    <!-- Define how many slides to put in the carousel -->
+                    <ol class="carousel-indicators">
+                        {% for slide in slides %}
+                        <li data-target="#theCarousel" data-slide-to="{{forloop.counter0}}" {% if forloop.first %} class="active" {% endif %}> </li >
+                        {% endfor %}
+                    </ol >
+
+                    <!-- Define the text to place over the image -->
+                    <div class="carousel-inner">
+                        {% for slide in slides %}
+                        <div class="item{% if forloop.first %}  active {% endif %}">
+                            <div class="col-md-3 col-sm-4 col-xs-12"><a href="#"><img src="{{ slide.pic.url }}"  width="250px" height="250px"></a></div>
+                        </div>
+                        <!--                    <div class="item{# {% if forloop.first %}  active {% endif %}#}" >-->
+                        <!--                        <div class ="slide1" style="background-image: url('{#{{ slide.pic.url }}#}')"></div>-->
+                        <!--                        <div class="carousel-caption"> </div>-->
+                        <!--                    </div>-->
+                        {% endfor %}
+                    </div>
+
+                    <!-- Set the actions to take when the arrows are clicked -->
+                    <a class="left carousel-control" href="#theCarousel" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"> </span>
+                    </a>
+                    <a class="right carousel-control" href="#theCarousel" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        {% if stories %} 
+        {% for story in stories %} 
+        <div class="col-md-12" style="padding:0; height: 20px;"></div>
+        <div class="col-sm-1"> </div>
+        <div class="col-sm-10">
+            <div class="thumbnail" style="display:inline-block; width: 100%;" >
+                <div class="col-sm-4">
+                    <img src="{{ story.pic.url }}" style="width:300px; height 300px;">
+                </div>
+                <div class="col-sm-4"> 
+                    <h1> {{story.title }} </h1> 
+                    <p> By: {{ story.artist.get_full_name.title }}  &emsp;  Date: {{ story.date_created }} </p>
+                    <p> {{ story.preview }} </p>
+                </div>
+
+                <div class="col-sm-4"> </div>
+            </div>
+        </div>
+        <div class="col-sm-1"> </div>
+        {% endfor %}
+        {% endif %}
+
+
+
+        <!--</div>  -->
+        {% if arts %}
+        {% for art in arts %}
+        <div class="col-sm-4 col-lg-2">
+            <div class="thumbnail">
+                <a href="{% url 'art:detail' art.id %}">
+                    <img src="{{ art.pic.url }}" class="img-responsive">
+                </a>
+                <div class="caption">
+                    <h2>{{ art.title }}</h2>
+                    <h4>{{ art.user.username }}</h4>
+                    <p> {{ art.date_created }} </p>
+
+                    <!-- View Details -->
+                    <a href="{% url 'art:detail' art.id %}" class="btn btn-primary btn-sm" role="button">View Details</a>
+
+                    <!-- Delete Album -->
+
+                    <form action="{% url 'art:delete_art' art.id %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="art_id" value="{{ art.id }}" />
+                        <button type="submit" class="btn btn-default btn-sm">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                    </form>
+
+                    <!-- Favorite Album -->
+
+                </div>
+            </div>
+        </div>
+        {% cycle '' '' '' '' '' '<div class="clearfix visible-lg"></div>' %}
+        {% endfor %}
+        <div class="col-sm-12">
+            <br>
+            <a href="{% url 'art:create_art' %}">
+                <button type="button" class="btn btn-success">
+                    <span class="glyphicon glyphicon-plus"></span>&nbsp; Add an Album
+                </button>
+            </a>
+        </div>
+        {% else %}
+        <div class="col-sm-12">
+            <br>
+            <a href="{% url 'art:create_art' %}">
+                <button type="button" class="btn btn-success">
+                    <span class="glyphicon glyphicon-plus"></span>&nbsp; Add an Album
+                </button>
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

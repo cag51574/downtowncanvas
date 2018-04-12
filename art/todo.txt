@@ -1,0 +1,44 @@
+Todo
+----
+
+1) artist page
+    - Design artist thumbnail
+    - Add favarite art to models
+    - 
+
+2) Home page
+    - Artist stories
+    - Stories model
+    - Thumbnails
+    - Thing below main jumbo, above carosel
+
+3) Individual artwork
+    - Add price to models
+    - Carosel
+    - Favorites
+    - Number of likes 
+    - ...
+
+4) Profile page
+:)    - Add color picker
+:)    - Add color to model
+    - Add artist's favorite artwork
+    - Color bar can't get scrolled off screen
+
+5) Individual artwork upload page
+    - similar to artwork page
+
+6) Gereral
+    - Get working on AWS
+    - Get stripe working
+    - More on search bar
+:)    - Figure out color picker
+    - Get image cropper
+    - Format images correctly
+:)    - Format carosel images
+    - Check difference between logged in, artist, and not logged in
+    - Static navbar that doesn't move away when scrolling
+    - Login when not logged in. 
+
+
+

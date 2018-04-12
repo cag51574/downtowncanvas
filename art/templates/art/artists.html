@@ -1,0 +1,39 @@
+{% extends 'art/base.html' %}
+{% block style %}
+
+{% load staticfiles %}
+<script src="{% static 'base/js/bootstrap.min.js' %}"></script>
+<link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Courgette' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css" href="{% static 'art/css/artists.css' %}"/>
+{% endblock %}
+
+{% block body %}
+<div class="albums-container container-fluid">
+    <div class="row">
+        <div class="jumbotron" id="main_jumbo">
+            <h1> Where the artist comes first</h1>
+            <h1> -Handpicked local talent- </h1>
+        </div>
+
+        {% if artists %}
+        {% for artist in artists %} 
+        <div class="col-xs-6" id="art_div">      
+            <div class="thumbnail"> 
+            <!--<a href="{#{% url 'artist:profile' artist.id %}#}">  -->
+                <a>
+                    <img src="{{ artist.profile_pic.url }}" class="img-responsive" id="art_pics">  
+                    <!--<img src="{#{{ artist.favorite_art.url }}#}" class="img-responsive" id="art_pics">  -->
+                </a>
+                <div class="caption">
+                    <h2>{{ artist.user.get_full_name }}</h2>
+                </div>
+                <img 
+            </div>
+        </div>
+        {% cycle '' '' '' '' '' '<div class="clearfix visible-lg"></div>' %}
+        {% endfor %} 
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

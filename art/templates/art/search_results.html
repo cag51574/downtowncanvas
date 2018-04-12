@@ -1,0 +1,50 @@
+{% extends 'art/base.html' %}
+{#{% block albums_active %}active{% endblock %}#}
+
+{% block body %}
+<div class="albums-container container-fluid">
+    <!-- Albums -->
+    <div class="row">
+        {% if artists %}
+            {% for artist in artists %}
+            <div class="col-sm-4 col-lg-4">
+                <h1 class="text-info">{{ artist.first_name }}'s  Profile</h1>
+                <div class="thumbnail">
+                    {% if artist.pic %}
+                    <img src="{{ artist.pic.url }}" class="img-responsive">
+                    {% endif %}
+                    <br>
+                    <br>
+                    <p> Bio: {{ artist.bio }} </p>
+                    <p> Describe your artistic vision: {{ artist.description }} </p>
+                    <p> Your favorite artists: {{ artist.favorite_artists }} </p>
+                    <p> Your favorite genres: {{ artist.favorite_genres }} </p>
+                    <a href="{% url 'art:edit_profile' %}">
+                        <button type="button" class="btn btn-success">
+                            <span class="glyphicon glyphicon-plus"></span>&nbsp;Edit Profile
+                        </button>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="col-sm-12">
+                <br>
+                <a href="{% url 'art:create_art' %}">
+                    <button type="button" class="btn btn-success">
+                        <span class="glyphicon glyphicon-plus"></span>&nbsp; Add an Album
+                    </button>
+                </a>
+            </div>
+        {% else %}
+            <div class="col-sm-12">
+                <br>
+                <a href="{% url 'art:create_art' %}">
+                    <button type="button" class="btn btn-success">
+                        <span class="glyphicon glyphicon-plus"></span>&nbsp; Add an Album
+                    </button>
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

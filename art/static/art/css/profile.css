@@ -1,0 +1,147 @@
+body {
+    font-family: arial, sans-serif;
+}
+#profile_name{
+    font-family: 'Courgette', cursive;
+    margin:0;
+    padding-top:25px;
+    color: #191970;
+}
+
+#profile_pic{
+    height: 400px;
+    width: 400px;
+}
+.col-sm-6{
+    margin:0;
+
+    background-color:white;
+    
+}
+
+.row{
+    overflow: hidden; 
+}
+/* sets the cols to equal heights */
+/*
+[class*="col-"]{
+    margin-bottom: -99999px;
+    padding-bottom: 99999px;
+}
+*/
+#artist_info{
+    height:400px;
+}
+
+.jumbotron{
+    margin:0;
+    
+}
+#jumbo{
+    padding:0px;
+    margin-top:0;
+    margin-bottom:0;
+    height: 175px;
+//    background-image: url('../images/fractal_png_23_by_variety_stock.png')
+}
+#jumbo2{
+    padding:0px;
+    margin-top:0;
+    margin-bottom:0;
+    height: 100%;
+    width: 100%;
+//    background-image: url('../images/fractal_png_23_by_variety_stock.png')
+}
+#nttLogo{
+    margin:0;
+}
+#websiteTitle{
+    font-size: 10em;
+    vertical-align: middle;
+    font-family: 'Pacifico', cursive;
+    padding-left: 15px;
+    color: #191970;
+}
+#websiteSlogan{
+    font-size: 5.4em;
+}
+/* Carousel Styling */
+.slide1{
+    height: 500px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+.carousel-caption h1{
+    font-size: 5.4em;
+    font-family: 'Pacifico', cursive;
+    padding-bottom: .4em;
+}
+.carousel-caption p{
+    font-size: 2em;
+}
+
+
+.navbar{
+    margin-bottom:0;
+}
+
+#color_picker{
+    height:30px;
+    width:50px;
+    float:right;
+    padding:0;
+    color:black;
+}
+
+#sub{
+    height:30px;
+    width:50px;
+    float:right;
+    margin-right:30px;
+    padding:0;
+    color:black;
+
+}
+
+#type-color-on-page{
+}
+#color_bar_hero{
+    
+    height:30px;
+}
+
+#profile_box{
+   height:400px;
+   background-color:white; 
+}
+#chat_and_art_div{
+	 margin:0;
+}
+
+#tlkio{
+	margin-left:12%;
+    width:88%;
+    height:400px; 
+}
+
+#tiny_seperator{
+    height:10px; 
+    width:100%;
+}
+#add_art_button{
+    position:absolute; 
+    top:0; 
+    left:0;
+	margin-top:20px;
+}
+
+#art_pics{
+    height:250px;
+    width:300px;
+}
+
+.thumbnail{
+	padding:0;
+}
+

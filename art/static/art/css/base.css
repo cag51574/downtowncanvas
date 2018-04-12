@@ -1,0 +1,16 @@
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 40px;
+    text-decoration: none;
+    
+}
+
+li a:hover {
+    background-color: #000000;
+}
+
+li hover{
+    background-color: #000;
+}

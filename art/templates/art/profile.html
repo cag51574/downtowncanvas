@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+{% extends 'art/base.html' %}
+
+{% block style %}
+
+{% load staticfiles %}
+<script src="{% static 'base/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'base/js/jscolor.min.js' %}"></script>
+<link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Courgette' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css" href="{% static 'art/css/profile.css' %}"/>
+
+{% endblock %}
+{% block body %}
+<div class="jumbotron text-center" id="jumbo" >
+    <div class="jumbotron" id="jumbo2" style="background-image: url('{{ artist.banner_pic.url }}')">
+	{% if artist %}
+    <h1 id="profile_name"> {{ artist.user.first_name}} {{ artist.user.last_name }} </h1>
+	{% endif %}
+    </div>
+</div>    
+<div class="contianer-fluid">  
+	<div class="row no-gutter">
+		<div class="col-sm-1"></div>
+		<div class="col-sm-4">
+			{% if artist.profile_pic %}
+			<img class="img-circle" id="profile_pic" src="{{ artist.profile_pic.url }}">
+			{% endif %}
+		</div>
+		<div class="col-sm-1"></div>
+		<div class="col-sm-6" id="artist_info">
+			<h1 class="text-info">My Profile( add cool font and styling here)</h1>
+			<br>
+			<br>
+			<p> Bio: {{ artist.bio }} </p>
+			<p> Describe your artistic vision: {{ artist.description }} </p>
+			<p> Your favorite artists: {{ artist.favorite_artists }} </p>
+			<p> Your favorite genres: {{ artist.favorite_genres }} </p>
+			<a href="{% url 'art:edit_profile' %}">
+				<button type="button" class="btn btn-success">
+					<span class="glyphicon glyphicon-plus"></span>&nbsp;Edit Profile
+				</button>
+			</a>
+		</div>
+	</div>
+    <div class="hero" id="color_bar_hero" style="background-color: {{ artist.colorbar }}">
+		<div class="row" style="position:relative">
+            <form action="{%url 'art:profile' %}" method="post">
+                        {% csrf_token %}
+            <input name="color2" type="hidden" id="color_value">
+            <!--<input type="button" id="hide" value="Hide">  -->
+            <input type="submit"  id="sub" value="Save">
+			<button name="color1" class="jscolor {valueElement:'chosen-value', onFineChange:'setTextColor(this)',width:243, height:150, position:'top',
+    borderColor:'#FFF', insetColor:'#FFF', backgroundColor:'#666'} jscolor-active" onchange="update(this.jscolor)" id="color_picker"> Color</button>
+	<script>
+    var hero = document.getElementById("color_bar_hero");
+    var color = document.getElementById("color_picker");
+    var sub =  document.getElementById("sub");
+    var hide =  document.getElementById("hide");
+    hero.onclick = function toggle(){
+        if(color.style.display === 'none'){
+            color.style.display = 'block';
+            sub.style.display = 'block';
+            hide.style.display = 'block';
+        }
+    }
+	function setTextColor(picker) {
+		document.getElementsByTagName('body')[0].style.color = '#' + picker.toString()
+		document.getElementById("color_bar_hero").style.backgroundColor = '#' + picker.toString()
+		document.getElementById("sub").style.backgroundColor = '#' + picker.toString()
+		document.getElementById("hide").style.backgroundColor = '#' + picker.toString()
+		document.getElementById("color_value").value = picker.toString()
+        window.alert(document.getElementById("color2").value)
+	}
+	</script>
+            </form>
+		</div>
+	</div>
+	<!-- Carousel -->
+	<!-- Surround everything with a div with the class carousel slide -->
+	<div class="row">
+		<div class="col-xs-12 col-sm-6 col-lg-8" id="chat_and_art_div">
+			<div id="tiny_seperator"></div>
+			{% if arts %}
+			{% for art in arts %}
+			<!--<div class="col-sm-4 col-lg-2">    -->
+			<div class="col-xs-6" id="art_div">      
+				<div class="thumbnail"> 
+					<a href="{% url 'art:detail' art.id %}">
+						<img src="{{ art.pic.url }}" class="img-responsive" id="art_pics">
+					</a>
+					<div class="caption">
+						<h2>{{ art.title }}</h2>
+						<h4>{{ art.user.username }}</h4>
+						<p> {{ art.date_created }} </p>
+
+						<!-- View Details -->
+						<a href="{% url 'art:detail' art.id %}" class="btn btn-primary btn-sm" role="button">View Details</a>
+
+						<!-- Delete Album -->
+
+						<form action="{% url 'art:delete_art' art.id %}" method="post" style="display: inline;">
+							{% csrf_token %}
+							<input type="hidden" name="art_id" value="{{ art.id }}" />
+							<button type="submit" class="btn btn-default btn-sm">
+								<span class="glyphicon glyphicon-trash"></span>
+							</button>
+						</form>
+					</div>
+				</div>
+			</div>
+			{% cycle '' '' '' '' '' '<div class="clearfix visible-lg"></div>' %}
+			{% endfor %}
+			{% else %}
+			<div class="col-sm-12">
+				<br>
+				<a href="{% url 'art:create_art' %}">
+					<button type="button" class="btn btn-success">
+						<span class="glyphicon glyphicon-plus"></span>&nbsp; Add an Album
+					</button>
+				</a>
+			</div>
+			{% endif %}
+			</div>
+			<div class="col-xs-6 col-lg-4" id="chat_and_art_div">
+			<a href="{% url 'art:create_art' %}">
+				<button type="button" class="btn btn-success" id="add_art_button">
+					<span class="glyphicon glyphicon-plus"></span>
+				</button>
+			</a>
+				<div id="tlkio" data-channel="TalkTo{{ user.first_name }}" > </div>
+				<script async src="http://tlk.io/embed.js" type="text/javascript"></script>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
